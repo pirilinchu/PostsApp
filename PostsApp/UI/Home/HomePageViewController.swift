@@ -83,6 +83,20 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
         present(controller, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return isOnFavoritesPage
+    }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+        let actions = [UIContextualAction(style: .destructive, title: "Delete") { _,_,_  in
+            let post = self.isOnFavoritesPage ? self.favorites[indexPath.row] : self.posts[indexPath.row]
+            let _ = PostsManager.shared.changePostStatus(post: post)
+            self.allTableView.reloadData()
+        }]
+        return UISwipeActionsConfiguration(actions: actions)
+    }
+    
 }
 
 extension UIColor {
