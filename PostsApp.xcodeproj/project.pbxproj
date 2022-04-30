@@ -22,6 +22,8 @@
 		35F4D5F3281CDBB500FC9ADB /* PostsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4D5F2281CDBB500FC9ADB /* PostsManager.swift */; };
 		35F4D5F5281CDCB400FC9ADB /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4D5F4281CDCB400FC9ADB /* ReachabilityManager.swift */; };
 		35F4D5F7281CE4AD00FC9ADB /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4D5F6281CE4AD00FC9ADB /* Comment.swift */; };
+		35F4D5FB281CE9BF00FC9ADB /* PostDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4D5F9281CE9BF00FC9ADB /* PostDetailsViewController.swift */; };
+		35F4D5FC281CE9BF00FC9ADB /* PostDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35F4D5FA281CE9BF00FC9ADB /* PostDetailsViewController.xib */; };
 		A6910CA07E7BE36C378D96F4 /* Pods_PostsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF5FFDF00A5AAF182DD5205 /* Pods_PostsApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +46,8 @@
 		35F4D5F2281CDBB500FC9ADB /* PostsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsManager.swift; sourceTree = "<group>"; };
 		35F4D5F4281CDCB400FC9ADB /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		35F4D5F6281CE4AD00FC9ADB /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		35F4D5F9281CE9BF00FC9ADB /* PostDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailsViewController.swift; sourceTree = "<group>"; };
+		35F4D5FA281CE9BF00FC9ADB /* PostDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostDetailsViewController.xib; sourceTree = "<group>"; };
 		6AB0420FBF3A7A151353353A /* Pods-PostsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostsApp.release.xcconfig"; path = "Target Support Files/Pods-PostsApp/Pods-PostsApp.release.xcconfig"; sourceTree = "<group>"; };
 		ACF5FFDF00A5AAF182DD5205 /* Pods_PostsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PostsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -137,6 +141,8 @@
 		35F4D5F8281CE94A00FC9ADB /* PostDetails */ = {
 			isa = PBXGroup;
 			children = (
+				35F4D5F9281CE9BF00FC9ADB /* PostDetailsViewController.swift */,
+				35F4D5FA281CE9BF00FC9ADB /* PostDetailsViewController.xib */,
 			);
 			path = PostDetails;
 			sourceTree = "<group>";
@@ -218,6 +224,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35F4D5FC281CE9BF00FC9ADB /* PostDetailsViewController.xib in Resources */,
 				359CDBBF281C93470019A298 /* LaunchScreen.storyboard in Resources */,
 				359CDBCA281CA0180019A298 /* HomePageViewController.xib in Resources */,
 				359CDBBC281C93470019A298 /* Assets.xcassets in Resources */,
@@ -283,6 +290,7 @@
 				359CDBCD281CA0630019A298 /* PostTableViewCell.swift in Sources */,
 				359CDBB3281C93460019A298 /* AppDelegate.swift in Sources */,
 				35F4D5EE281CB21B00FC9ADB /* Post.swift in Sources */,
+				35F4D5FB281CE9BF00FC9ADB /* PostDetailsViewController.swift in Sources */,
 				35F4D5F7281CE4AD00FC9ADB /* Comment.swift in Sources */,
 				359CDBB5281C93460019A298 /* SceneDelegate.swift in Sources */,
 			);
