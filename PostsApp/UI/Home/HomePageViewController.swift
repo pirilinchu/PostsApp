@@ -12,6 +12,14 @@ class HomePageViewController: UIViewController {
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var allTableView: UITableView!
+    @IBOutlet weak var offlineBanner: UIView!
+    @IBOutlet weak var offlineBannerHeight: NSLayoutConstraint!
+    
+    var refreshControl: UIRefreshControl {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.fillData), for: .valueChanged)
+        return refreshControl
+    }
     
     var posts: [Post] {
         PostsManager.shared.getPosts
@@ -34,6 +42,30 @@ class HomePageViewController: UIViewController {
         setupUI()
         fillData()
         setupDeleteButton()
+        setupRefreshControl()
+        setupBanner()
+        registerNotifications()
+    }
+    
+    private func registerNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleReachabilityChanged), name: .reachabilityChanged, object: nil)
+    }
+    
+    @objc private func handleReachabilityChanged() {
+        setupRefreshControl()
+        setupBanner()
+    }
+    
+    private func setupBanner() {
+        offlineBannerHeight.constant = ReachabilityManager.shared.isNetworkReachable ? 0.0 : 20.0
+    }
+    
+    private func setupRefreshControl() {
+        if !isOnFavoritesPage && ReachabilityManager.shared.isNetworkReachable {
+            allTableView.refreshControl = refreshControl
+        } else {
+            allTableView.refreshControl = nil
+        }
     }
     
     private func setupDeleteButton() {
@@ -45,13 +77,15 @@ class HomePageViewController: UIViewController {
 
     }
     
-    private func fillData() {
+    @objc private func fillData() {
         PostsManager.shared.getPosts { posts in
+            self.allTableView.refreshControl?.endRefreshing()
             self.allTableView.reloadData()
         } failure: { error in
             print("Error")
         }
     }
+    
     private func setupUI() {
         view.backgroundColor = .backgroundColor
         navBar.barTintColor = .backgroundColor
@@ -72,6 +106,7 @@ class HomePageViewController: UIViewController {
     @IBAction func segmentedControlTapped(_ sender: Any) {
         allTableView.reloadData()
         setupDeleteButton()
+        setupRefreshControl()
     }
 }
 
@@ -124,5 +159,9 @@ extension UIColor {
 extension Int {
     static let homePage = 0
     static let favoritePage = 1
+}
+
+extension Notification.Name {
+    static let connectionIsBack = "ConnectionIsBack"
 }
 
