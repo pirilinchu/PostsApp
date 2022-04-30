@@ -19,6 +19,8 @@
 		359CDBCE281CA0630019A298 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 359CDBCC281CA0630019A298 /* PostTableViewCell.xib */; };
 		35F4D5EE281CB21B00FC9ADB /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4D5ED281CB21B00FC9ADB /* Post.swift */; };
 		35F4D5F0281CB7F100FC9ADB /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4D5EF281CB7F100FC9ADB /* APIManager.swift */; };
+		35F4D5F3281CDBB500FC9ADB /* PostsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4D5F2281CDBB500FC9ADB /* PostsManager.swift */; };
+		35F4D5F5281CDCB400FC9ADB /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4D5F4281CDCB400FC9ADB /* ReachabilityManager.swift */; };
 		A6910CA07E7BE36C378D96F4 /* Pods_PostsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF5FFDF00A5AAF182DD5205 /* Pods_PostsApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +40,8 @@
 		359CDBCC281CA0630019A298 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
 		35F4D5ED281CB21B00FC9ADB /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		35F4D5EF281CB7F100FC9ADB /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		35F4D5F2281CDBB500FC9ADB /* PostsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsManager.swift; sourceTree = "<group>"; };
+		35F4D5F4281CDCB400FC9ADB /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		6AB0420FBF3A7A151353353A /* Pods-PostsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostsApp.release.xcconfig"; path = "Target Support Files/Pods-PostsApp/Pods-PostsApp.release.xcconfig"; sourceTree = "<group>"; };
 		ACF5FFDF00A5AAF182DD5205 /* Pods_PostsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PostsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -59,6 +63,8 @@
 			children = (
 				35018E86281CA71800BBD2A7 /* DBManager.swift */,
 				35F4D5EF281CB7F100FC9ADB /* APIManager.swift */,
+				35F4D5F4281CDCB400FC9ADB /* ReachabilityManager.swift */,
+				35F4D5F2281CDBB500FC9ADB /* PostsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -260,6 +266,8 @@
 				35F4D5F0281CB7F100FC9ADB /* APIManager.swift in Sources */,
 				359CDBC9281CA0180019A298 /* HomePageViewController.swift in Sources */,
 				35018E87281CA71800BBD2A7 /* DBManager.swift in Sources */,
+				35F4D5F3281CDBB500FC9ADB /* PostsManager.swift in Sources */,
+				35F4D5F5281CDCB400FC9ADB /* ReachabilityManager.swift in Sources */,
 				359CDBB7281C93460019A298 /* ViewController.swift in Sources */,
 				359CDBCD281CA0630019A298 /* PostTableViewCell.swift in Sources */,
 				359CDBB3281C93460019A298 /* AppDelegate.swift in Sources */,

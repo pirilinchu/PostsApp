@@ -8,5 +8,6 @@ target 'PostsApp' do
   # Pods for PostsApp
   pod 'Alamofire'
   pod 'RealmSwift'
+  pod 'ReachabilitySwift'
 
 end
