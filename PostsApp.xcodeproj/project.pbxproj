@@ -26,8 +26,21 @@
 		35F4D5FE281CF99C00FC9ADB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4D5FD281CF99C00FC9ADB /* User.swift */; };
 		35F4D601281D009000FC9ADB /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4D5FF281D009000FC9ADB /* CommentTableViewCell.swift */; };
 		35F4D602281D009000FC9ADB /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35F4D600281D009000FC9ADB /* CommentTableViewCell.xib */; };
+		35F4D612281D7A0300FC9ADB /* PostDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4D611281D7A0300FC9ADB /* PostDataTest.swift */; };
+		35F4D616281D85F900FC9ADB /* CommentDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4D615281D85F900FC9ADB /* CommentDataTest.swift */; };
+		35F4D618281D86C000FC9ADB /* UserDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4D617281D86C000FC9ADB /* UserDataTest.swift */; };
 		A6910CA07E7BE36C378D96F4 /* Pods_PostsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF5FFDF00A5AAF182DD5205 /* Pods_PostsApp.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		35F4D60B281D796500FC9ADB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 359CDBA7281C93460019A298 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 359CDBAE281C93460019A298;
+			remoteInfo = PostsApp;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		061203C522368F232BB40C3F /* Pods-PostsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostsApp.debug.xcconfig"; path = "Target Support Files/Pods-PostsApp/Pods-PostsApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -52,6 +65,10 @@
 		35F4D5FD281CF99C00FC9ADB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		35F4D5FF281D009000FC9ADB /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		35F4D600281D009000FC9ADB /* CommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
+		35F4D607281D796500FC9ADB /* PostsAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PostsAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		35F4D611281D7A0300FC9ADB /* PostDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataTest.swift; sourceTree = "<group>"; };
+		35F4D615281D85F900FC9ADB /* CommentDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDataTest.swift; sourceTree = "<group>"; };
+		35F4D617281D86C000FC9ADB /* UserDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataTest.swift; sourceTree = "<group>"; };
 		6AB0420FBF3A7A151353353A /* Pods-PostsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostsApp.release.xcconfig"; path = "Target Support Files/Pods-PostsApp/Pods-PostsApp.release.xcconfig"; sourceTree = "<group>"; };
 		ACF5FFDF00A5AAF182DD5205 /* Pods_PostsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PostsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -62,6 +79,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6910CA07E7BE36C378D96F4 /* Pods_PostsApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35F4D604281D796500FC9ADB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				359CDBB1281C93460019A298 /* PostsApp */,
+				35F4D608281D796500FC9ADB /* PostsAppTests */,
 				359CDBB0281C93460019A298 /* Products */,
 				5EE624D3AA72EF68C911F77F /* Pods */,
 				70A717F5372BB262A0F345A5 /* Frameworks */,
@@ -93,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				359CDBAF281C93460019A298 /* PostsApp.app */,
+				35F4D607281D796500FC9ADB /* PostsAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -153,6 +179,24 @@
 			path = PostDetails;
 			sourceTree = "<group>";
 		};
+		35F4D608281D796500FC9ADB /* PostsAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				35F4D610281D797E00FC9ADB /* Decodables */,
+			);
+			path = PostsAppTests;
+			sourceTree = "<group>";
+		};
+		35F4D610281D797E00FC9ADB /* Decodables */ = {
+			isa = PBXGroup;
+			children = (
+				35F4D611281D7A0300FC9ADB /* PostDataTest.swift */,
+				35F4D615281D85F900FC9ADB /* CommentDataTest.swift */,
+				35F4D617281D86C000FC9ADB /* UserDataTest.swift */,
+			);
+			path = Decodables;
+			sourceTree = "<group>";
+		};
 		5EE624D3AA72EF68C911F77F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +236,24 @@
 			productReference = 359CDBAF281C93460019A298 /* PostsApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		35F4D606281D796500FC9ADB /* PostsAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 35F4D60F281D796500FC9ADB /* Build configuration list for PBXNativeTarget "PostsAppTests" */;
+			buildPhases = (
+				35F4D603281D796500FC9ADB /* Sources */,
+				35F4D604281D796500FC9ADB /* Frameworks */,
+				35F4D605281D796500FC9ADB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				35F4D60C281D796500FC9ADB /* PBXTargetDependency */,
+			);
+			name = PostsAppTests;
+			productName = PostsAppTests;
+			productReference = 35F4D607281D796500FC9ADB /* PostsAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -204,6 +266,10 @@
 				TargetAttributes = {
 					359CDBAE281C93460019A298 = {
 						CreatedOnToolsVersion = 13.3.1;
+					};
+					35F4D606281D796500FC9ADB = {
+						CreatedOnToolsVersion = 13.3.1;
+						TestTargetID = 359CDBAE281C93460019A298;
 					};
 				};
 			};
@@ -221,6 +287,7 @@
 			projectRoot = "";
 			targets = (
 				359CDBAE281C93460019A298 /* PostsApp */,
+				35F4D606281D796500FC9ADB /* PostsAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -236,6 +303,13 @@
 				359CDBCA281CA0180019A298 /* HomePageViewController.xib in Resources */,
 				359CDBBC281C93470019A298 /* Assets.xcassets in Resources */,
 				359CDBCE281CA0630019A298 /* PostTableViewCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35F4D605281D796500FC9ADB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,7 +378,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		35F4D603281D796500FC9ADB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35F4D618281D86C000FC9ADB /* UserDataTest.swift in Sources */,
+				35F4D612281D7A0300FC9ADB /* PostDataTest.swift in Sources */,
+				35F4D616281D85F900FC9ADB /* CommentDataTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		35F4D60C281D796500FC9ADB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 359CDBAE281C93460019A298 /* PostsApp */;
+			targetProxy = 35F4D60B281D796500FC9ADB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		359CDBBD281C93470019A298 /* LaunchScreen.storyboard */ = {
@@ -488,6 +580,44 @@
 			};
 			name = Release;
 		};
+		35F4D60D281D796500FC9ADB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JF5SBMV5PB;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.PostsAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PostsApp.app/PostsApp";
+			};
+			name = Debug;
+		};
+		35F4D60E281D796500FC9ADB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JF5SBMV5PB;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.PostsAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PostsApp.app/PostsApp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -505,6 +635,15 @@
 			buildConfigurations = (
 				359CDBC4281C93470019A298 /* Debug */,
 				359CDBC5281C93470019A298 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		35F4D60F281D796500FC9ADB /* Build configuration list for PBXNativeTarget "PostsAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35F4D60D281D796500FC9ADB /* Debug */,
+				35F4D60E281D796500FC9ADB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
