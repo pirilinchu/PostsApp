@@ -22,7 +22,7 @@ class HomePageViewController: UIViewController {
     }
     
     var posts: [Post] {
-        PostsManager.shared.getPosts
+        PostsManager.shared.getPosts.sorted(by: { $0.isFavorite && !$1.isFavorite })
     }
     var favorites: [Post] {
         posts.filter({ $0.isFavorite })
@@ -49,6 +49,11 @@ class HomePageViewController: UIViewController {
     
     private func registerNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleReachabilityChanged), name: .reachabilityChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePostHasChangedStatus), name: .postHasChangedStatus, object: nil)
+    }
+    
+    @objc private func handlePostHasChangedStatus() {
+        allTableView.reloadData()
     }
     
     @objc private func handleReachabilityChanged() {
@@ -146,6 +151,7 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
             let post = self.isOnFavoritesPage ? self.favorites[indexPath.row] : self.posts[indexPath.row]
             let _ = PostsManager.shared.changePostStatus(post: post)
             self.allTableView.reloadData()
+            self.setupDeleteButton()
         }]
         return UISwipeActionsConfiguration(actions: actions)
     }
@@ -162,6 +168,6 @@ extension Int {
 }
 
 extension Notification.Name {
-    static let connectionIsBack = "ConnectionIsBack"
+    static let postHasChangedStatus = Notification.Name("PostHasChangedStatus")
 }
 
