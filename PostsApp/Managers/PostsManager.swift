@@ -35,4 +35,18 @@ class PostsManager {
         return database.changePostStatus(post: post)
     }
     
+    func getCommentsForPost(post: Post, success: @escaping(_ posts: [Comment]) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+        guard ReachabilityManager.shared.isNetworkReachable else {
+            success(database.getCommentsFor(post: post))
+            return
+        }
+        
+        api.getComments { comments in
+            let commentsForPost = self.database.saveComments(post: post, comments: comments)
+            success(commentsForPost)
+        } failure: { error in
+            failure(error)
+        }
+    }
+    
 }
