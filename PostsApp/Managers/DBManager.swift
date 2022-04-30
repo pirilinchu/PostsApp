@@ -6,3 +6,17 @@
 //
 
 import Foundation
+import RealmSwift
+
+class DBManager: NSObject {
+    static let shared = DBManager()
+
+    func instantiateRealm() -> Realm {
+        do {
+            let realm = try Realm()
+            return realm
+        } catch {
+            fatalError("Could not create a Realm instance")
+        }
+    }
+}

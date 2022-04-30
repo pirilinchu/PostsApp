@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35018E87281CA71800BBD2A7 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35018E86281CA71800BBD2A7 /* DBManager.swift */; };
 		359CDBB3281C93460019A298 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359CDBB2281C93460019A298 /* AppDelegate.swift */; };
 		359CDBB5281C93460019A298 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359CDBB4281C93460019A298 /* SceneDelegate.swift */; };
 		359CDBB7281C93460019A298 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359CDBB6281C93460019A298 /* ViewController.swift */; };
@@ -16,11 +17,14 @@
 		359CDBCA281CA0180019A298 /* HomePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 359CDBC8281CA0180019A298 /* HomePageViewController.xib */; };
 		359CDBCD281CA0630019A298 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359CDBCB281CA0620019A298 /* PostTableViewCell.swift */; };
 		359CDBCE281CA0630019A298 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 359CDBCC281CA0630019A298 /* PostTableViewCell.xib */; };
+		35F4D5EE281CB21B00FC9ADB /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4D5ED281CB21B00FC9ADB /* Post.swift */; };
+		35F4D5F0281CB7F100FC9ADB /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F4D5EF281CB7F100FC9ADB /* APIManager.swift */; };
 		A6910CA07E7BE36C378D96F4 /* Pods_PostsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF5FFDF00A5AAF182DD5205 /* Pods_PostsApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		061203C522368F232BB40C3F /* Pods-PostsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostsApp.debug.xcconfig"; path = "Target Support Files/Pods-PostsApp/Pods-PostsApp.debug.xcconfig"; sourceTree = "<group>"; };
+		35018E86281CA71800BBD2A7 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		359CDBAF281C93460019A298 /* PostsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		359CDBB2281C93460019A298 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		359CDBB4281C93460019A298 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,6 +36,8 @@
 		359CDBC8281CA0180019A298 /* HomePageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomePageViewController.xib; sourceTree = "<group>"; };
 		359CDBCB281CA0620019A298 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		359CDBCC281CA0630019A298 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
+		35F4D5ED281CB21B00FC9ADB /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		35F4D5EF281CB7F100FC9ADB /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		6AB0420FBF3A7A151353353A /* Pods-PostsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostsApp.release.xcconfig"; path = "Target Support Files/Pods-PostsApp/Pods-PostsApp.release.xcconfig"; sourceTree = "<group>"; };
 		ACF5FFDF00A5AAF182DD5205 /* Pods_PostsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PostsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -48,6 +54,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		35018E85281CA6C700BBD2A7 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				35018E86281CA71800BBD2A7 /* DBManager.swift */,
+				35F4D5EF281CB7F100FC9ADB /* APIManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		359CDBA6281C93460019A298 = {
 			isa = PBXGroup;
 			children = (
@@ -69,6 +84,8 @@
 		359CDBB1281C93460019A298 /* PostsApp */ = {
 			isa = PBXGroup;
 			children = (
+				35F4D5EC281CB21000FC9ADB /* Models */,
+				35018E85281CA6C700BBD2A7 /* Managers */,
 				359CDBC6281C9FF60019A298 /* UI */,
 				359CDBB2281C93460019A298 /* AppDelegate.swift */,
 				359CDBB4281C93460019A298 /* SceneDelegate.swift */,
@@ -89,6 +106,14 @@
 				359CDBCC281CA0630019A298 /* PostTableViewCell.xib */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		35F4D5EC281CB21000FC9ADB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				35F4D5ED281CB21B00FC9ADB /* Post.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		5EE624D3AA72EF68C911F77F /* Pods */ = {
@@ -119,7 +144,7 @@
 				359CDBAB281C93460019A298 /* Sources */,
 				359CDBAC281C93460019A298 /* Frameworks */,
 				359CDBAD281C93460019A298 /* Resources */,
-				54C306737196AB522AB7875D /* [CP] Embed Pods Frameworks */,
+				44EF7CC46E722A8AA1EF106F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -178,7 +203,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		54C306737196AB522AB7875D /* [CP] Embed Pods Frameworks */ = {
+		44EF7CC46E722A8AA1EF106F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -224,10 +249,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35F4D5F0281CB7F100FC9ADB /* APIManager.swift in Sources */,
 				359CDBC9281CA0180019A298 /* HomePageViewController.swift in Sources */,
+				35018E87281CA71800BBD2A7 /* DBManager.swift in Sources */,
 				359CDBB7281C93460019A298 /* ViewController.swift in Sources */,
 				359CDBCD281CA0630019A298 /* PostTableViewCell.swift in Sources */,
 				359CDBB3281C93460019A298 /* AppDelegate.swift in Sources */,
+				35F4D5EE281CB21B00FC9ADB /* Post.swift in Sources */,
 				359CDBB5281C93460019A298 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

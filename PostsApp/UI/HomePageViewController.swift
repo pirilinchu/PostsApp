@@ -17,6 +17,12 @@ class HomePageViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         setupUI()
+        APIManager.shared.getPosts { posts in
+            print("Success")
+        } failure: { error in
+            print("Error")
+        }
+
     }
     
     private func setupUI() {
