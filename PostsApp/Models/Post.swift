@@ -10,8 +10,10 @@ import RealmSwift
 
 // MARK: - Post
 class Post: Object, Codable {
-    @objc dynamic let userID, id: Int
-    @objc dynamic let title, body: String
+    @objc dynamic var userID: Int = 0
+    @objc dynamic var id: Int = 0
+    @objc dynamic var title: String = ""
+    @objc dynamic var body: String = ""
     @objc dynamic var isFavorite = false
     
     enum CodingKeys: String, CodingKey {
@@ -23,3 +25,5 @@ class Post: Object, Codable {
         return "id"
     }
 }
+
+typealias PostsResponse = [Post]
