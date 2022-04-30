@@ -89,9 +89,23 @@ class DBManager: NSObject {
         do {
            try realm.commitWrite()
         } catch {
-            fatalError("Error saving comments")
+            fatalError("Error saving users")
         }
         
         return getUserFor(post: post)
+    }
+    
+    func removeAllFavorites() {
+        let realm = instantiateRealm()
+        
+        let favorites = realm.objects(Post.self).filter({ $0.isFavorite })
+        
+        realm.beginWrite()
+        realm.delete(favorites)
+        do {
+           try realm.commitWrite()
+        } catch {
+            fatalError("Error deleting favorites")
+        }
     }
 }

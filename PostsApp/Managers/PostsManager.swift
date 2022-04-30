@@ -71,4 +71,7 @@ class PostsManager {
         database.getUserFor(post: post)
     }
     
+    func removeAllFavorites() {
+        database.removeAllFavorites()
+    }
 }

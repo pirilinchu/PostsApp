@@ -33,6 +33,16 @@ class HomePageViewController: UIViewController {
         setupTableView()
         setupUI()
         fillData()
+        setupDeleteButton()
+    }
+    
+    private func setupDeleteButton() {
+        if !favorites.isEmpty && isOnFavoritesPage {
+            navBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Remove All", style: .plain, target: self, action: #selector(handleDeleteFavorites))
+        } else {
+            navBar.topItem?.rightBarButtonItem = nil
+        }
+
     }
     
     private func fillData() {
@@ -53,8 +63,15 @@ class HomePageViewController: UIViewController {
         allTableView.dataSource = self
     }
     
+    @objc func handleDeleteFavorites() {
+        PostsManager.shared.removeAllFavorites()
+        allTableView.reloadData()
+        setupDeleteButton()
+    }
+    
     @IBAction func segmentedControlTapped(_ sender: Any) {
         allTableView.reloadData()
+        setupDeleteButton()
     }
 }
 
@@ -79,6 +96,7 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
         controller.post = isOnFavoritesPage ? favorites[indexPath.row] : posts[indexPath.row]
         controller.completionHandler = {
             self.allTableView.reloadData()
+            self.setupDeleteButton()
         }
         present(controller, animated: true)
     }
