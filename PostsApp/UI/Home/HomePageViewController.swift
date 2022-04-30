@@ -12,6 +12,14 @@ class HomePageViewController: UIViewController {
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var allTableView: UITableView!
+    @IBOutlet weak var offlineBanner: UIView!
+    @IBOutlet weak var offlineBannerHeight: NSLayoutConstraint!
+    
+    var refreshControl: UIRefreshControl {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.fillData), for: .valueChanged)
+        return refreshControl
+    }
     
     var posts: [Post] {
         PostsManager.shared.getPosts
@@ -33,15 +41,51 @@ class HomePageViewController: UIViewController {
         setupTableView()
         setupUI()
         fillData()
+        setupDeleteButton()
+        setupRefreshControl()
+        setupBanner()
+        registerNotifications()
     }
     
-    private func fillData() {
+    private func registerNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleReachabilityChanged), name: .reachabilityChanged, object: nil)
+    }
+    
+    @objc private func handleReachabilityChanged() {
+        setupRefreshControl()
+        setupBanner()
+    }
+    
+    private func setupBanner() {
+        offlineBannerHeight.constant = ReachabilityManager.shared.isNetworkReachable ? 0.0 : 20.0
+    }
+    
+    private func setupRefreshControl() {
+        if !isOnFavoritesPage && ReachabilityManager.shared.isNetworkReachable {
+            allTableView.refreshControl = refreshControl
+        } else {
+            allTableView.refreshControl = nil
+        }
+    }
+    
+    private func setupDeleteButton() {
+        if !favorites.isEmpty && isOnFavoritesPage {
+            navBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Remove All", style: .plain, target: self, action: #selector(handleDeleteFavorites))
+        } else {
+            navBar.topItem?.rightBarButtonItem = nil
+        }
+
+    }
+    
+    @objc private func fillData() {
         PostsManager.shared.getPosts { posts in
+            self.allTableView.refreshControl?.endRefreshing()
             self.allTableView.reloadData()
         } failure: { error in
             print("Error")
         }
     }
+    
     private func setupUI() {
         view.backgroundColor = .backgroundColor
         navBar.barTintColor = .backgroundColor
@@ -53,8 +97,16 @@ class HomePageViewController: UIViewController {
         allTableView.dataSource = self
     }
     
+    @objc func handleDeleteFavorites() {
+        PostsManager.shared.removeAllFavorites()
+        allTableView.reloadData()
+        setupDeleteButton()
+    }
+    
     @IBAction func segmentedControlTapped(_ sender: Any) {
         allTableView.reloadData()
+        setupDeleteButton()
+        setupRefreshControl()
     }
 }
 
@@ -79,8 +131,23 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
         controller.post = isOnFavoritesPage ? favorites[indexPath.row] : posts[indexPath.row]
         controller.completionHandler = {
             self.allTableView.reloadData()
+            self.setupDeleteButton()
         }
         present(controller, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return isOnFavoritesPage
+    }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+        let actions = [UIContextualAction(style: .destructive, title: "Delete") { _,_,_  in
+            let post = self.isOnFavoritesPage ? self.favorites[indexPath.row] : self.posts[indexPath.row]
+            let _ = PostsManager.shared.changePostStatus(post: post)
+            self.allTableView.reloadData()
+        }]
+        return UISwipeActionsConfiguration(actions: actions)
     }
     
 }
@@ -92,5 +159,9 @@ extension UIColor {
 extension Int {
     static let homePage = 0
     static let favoritePage = 1
+}
+
+extension Notification.Name {
+    static let connectionIsBack = "ConnectionIsBack"
 }
 

@@ -21,6 +21,9 @@ class ReachabilityManager: ReachabilityProviding {
     private let reachability = try? Reachability()
 
     private init() {
+//        reachability?.whenReachable = { _ in
+//            NotificationCenter.post(<#T##self: NotificationCenter##NotificationCenter#>)
+//        }
         try? reachability?.startNotifier()
     }
 }
