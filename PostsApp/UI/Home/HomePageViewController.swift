@@ -70,6 +70,7 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
         cell.post = isOnFavoritesPage ? favorites[indexPath.row] : posts[indexPath.row]
         cell.isOnFavorite = isOnFavoritesPage
         cell.setupUI()
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -81,6 +82,7 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
         }
         present(controller, animated: true)
     }
+    
 }
 
 extension UIColor {

@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostDetailsViewController" customModule="PostsApp" customModuleProvider="target">
             <connections>
                 <outlet property="backButton" destination="GZE-s5-erj" id="Bp2-Cs-VMD"/>
+                <outlet property="commentsTableView" destination="BG6-xE-aO3" id="Niy-a1-vjF"/>
                 <outlet property="commentsView" destination="gc2-2H-msi" id="KLL-uH-cQY"/>
                 <outlet property="descriptionView" destination="pXw-RJ-d15" id="aRk-cm-FEF"/>
                 <outlet property="emailLabel" destination="qQO-zy-Dh0" id="aLD-Oz-36c"/>
@@ -183,7 +184,19 @@
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gc2-2H-msi">
                             <rect key="frame" x="0.0" y="532.5" width="378" height="249.5"/>
+                            <subviews>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="BG6-xE-aO3">
+                                    <rect key="frame" x="18" y="18" width="342" height="213.5"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </tableView>
+                            </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="BG6-xE-aO3" secondAttribute="trailing" constant="18" id="1C3-zB-kO5"/>
+                                <constraint firstItem="BG6-xE-aO3" firstAttribute="top" secondItem="gc2-2H-msi" secondAttribute="top" constant="18" id="KDk-pN-605"/>
+                                <constraint firstItem="BG6-xE-aO3" firstAttribute="leading" secondItem="gc2-2H-msi" secondAttribute="leading" constant="18" id="PQc-18-1Ww"/>
+                                <constraint firstAttribute="bottom" secondItem="BG6-xE-aO3" secondAttribute="bottom" constant="18" id="WNm-kK-r5x"/>
+                            </constraints>
                         </view>
                     </subviews>
                     <constraints>

@@ -11,6 +11,7 @@ class PostDetailsViewController: UIViewController {
 
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
@@ -22,10 +23,15 @@ class PostDetailsViewController: UIViewController {
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var commentsView: UIView!
     
+    @IBOutlet weak var commentsTableView: UITableView!
+    
     var post: Post = Post()
     var completionHandler: (() -> Void)? = nil
     var user: User {
         PostsManager.shared.getUserForPost(post: post)
+    }
+    var comments: [Comment] {
+        PostsManager.shared.getCommentsForPost(post: post)
     }
     
     var buttonImage: UIImage {
@@ -34,7 +40,8 @@ class PostDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getUser()
+        setupTableView()
+        getData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,10 +55,21 @@ class PostDetailsViewController: UIViewController {
         completionHandler?()
     }
     
-    private func getUser() {
-        PostsManager.shared.getUserForPost(post: post) { posts in
+    private func setupTableView() {
+        commentsTableView.delegate = self
+        commentsTableView.dataSource = self
+    }
+    
+    private func getData() {
+        PostsManager.shared.getUserForPost(post: post) { _ in
             self.fillData()
             self.updateUI()
+        } failure: { error in
+            print("error")
+        }
+        
+        PostsManager.shared.getCommentsForPost(post: post) { _ in
+            self.commentsTableView.reloadData()
         } failure: { error in
             print("error")
         }
@@ -88,5 +106,21 @@ class PostDetailsViewController: UIViewController {
     
     @IBAction func backButtonTapped(_ sender: Any) {
         dismiss(animated: true)
+    }
+}
+
+extension PostDetailsViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        comments.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = Bundle.main.loadNibNamed(CommentTableViewCell.identifier, owner: self, options: nil)?.first as? CommentTableViewCell else {
+            return CommentTableViewCell()
+        }
+        cell.comment = comments[indexPath.row]
+        cell.updateUI()
+        cell.selectionStyle = .none
+        return cell
     }
 }

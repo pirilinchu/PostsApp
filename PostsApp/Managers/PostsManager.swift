@@ -49,6 +49,10 @@ class PostsManager {
         }
     }
     
+    func getCommentsForPost(post: Post) -> [Comment] {
+        database.getCommentsFor(post: post)
+    }
+    
     func getUserForPost(post: Post, success: @escaping(_ posts: User) -> Void, failure: @escaping(_ error: Error?) -> Void) {
         guard ReachabilityManager.shared.isNetworkReachable else {
             success(database.getUserFor(post: post))
