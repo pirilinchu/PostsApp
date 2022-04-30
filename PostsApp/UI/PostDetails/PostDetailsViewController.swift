@@ -24,6 +24,9 @@ class PostDetailsViewController: UIViewController {
     
     var post: Post = Post()
     var completionHandler: (() -> Void)? = nil
+    var user: User {
+        PostsManager.shared.getUserForPost(post: post)
+    }
     
     var buttonImage: UIImage {
         return post.isFavorite ? UIImage(systemName: "star.fill")! : UIImage(systemName: "star")!
@@ -31,7 +34,7 @@ class PostDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        getUser()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,9 +47,25 @@ class PostDetailsViewController: UIViewController {
         super.viewWillDisappear(animated)
         completionHandler?()
     }
+    
+    private func getUser() {
+        PostsManager.shared.getUserForPost(post: post) { posts in
+            self.fillData()
+            self.updateUI()
+        } failure: { error in
+            print("error")
+        }
+    }
+    
     private func fillData() {
+        usernameLabel.text = user.username
+        emailLabel.text = user.email
+        nameLabel.text = user.name
+        websiteLabel.text = user.website
+        
         titleLabel.text = post.title
         postDescriptionLabel.text = post.body
+        
     }
     
     private func updateButton() {

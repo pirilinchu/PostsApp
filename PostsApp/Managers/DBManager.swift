@@ -75,4 +75,23 @@ class DBManager: NSObject {
         
         return getCommentsFor(post: post)
     }
+    
+    func getUserFor(post: Post) -> User {
+        return instantiateRealm().objects(User.self).where({ $0.id == post.userID }).first ?? User()
+    }
+    
+    func saveUsers(post: Post, users: [User]) -> User {
+        let realm = instantiateRealm()
+        
+        realm.beginWrite()
+        realm.delete(realm.objects(User.self))
+        realm.add(users)
+        do {
+           try realm.commitWrite()
+        } catch {
+            fatalError("Error saving comments")
+        }
+        
+        return getUserFor(post: post)
+    }
 }

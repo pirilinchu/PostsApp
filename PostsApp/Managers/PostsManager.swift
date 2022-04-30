@@ -49,4 +49,22 @@ class PostsManager {
         }
     }
     
+    func getUserForPost(post: Post, success: @escaping(_ posts: User) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+        guard ReachabilityManager.shared.isNetworkReachable else {
+            success(database.getUserFor(post: post))
+            return
+        }
+        
+        api.getUsers { users in
+            let userForPost = self.database.saveUsers(post: post, users: users)
+            success(userForPost)
+        } failure: { error in
+            failure(error)
+        }
+    }
+    
+    func getUserForPost(post: Post) -> User {
+        database.getUserFor(post: post)
+    }
+    
 }
