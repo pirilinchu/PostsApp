@@ -19,4 +19,16 @@ class DBManager: NSObject {
             fatalError("Could not create a Realm instance")
         }
     }
+    
+    func savePosts(posts: [Post]) {
+        let realm = instantiateRealm()
+        
+        realm.beginWrite()
+        realm.add(posts)
+        do {
+           try realm.commitWrite()
+        } catch {
+            fatalError("Error saving posts")
+        }
+    }
 }

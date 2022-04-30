@@ -15,14 +15,21 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var postTitleLabel: UILabel!
     @IBOutlet weak var postDescriptionLabel: UILabel!
     
-    
+    var post: Post = Post()
+    var isOnFavorite = false
+    var buttonImage: UIImage {
+        return post.isFavorite ? UIImage(systemName: "star.fill")! : UIImage(systemName: "star")!
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         setupUI()
     }
     
-    private func setupUI() {
-
+    func setupUI() {
+        postTitleLabel.text = post.title
+        postDescriptionLabel.text = post.body
+        favoriteButton.setImage(buttonImage, for: .normal)
+        favoriteButton.isHidden = isOnFavorite
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -31,4 +38,8 @@ class PostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    @IBAction func favoriteButtonTapped(_ sender: Any) {
+        post.isFavorite = !post.isFavorite
+        setupUI()
+    }
 }
