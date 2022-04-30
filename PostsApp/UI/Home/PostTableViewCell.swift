@@ -40,6 +40,7 @@ class PostTableViewCell: UITableViewCell {
     
     @IBAction func favoriteButtonTapped(_ sender: Any) {
         post = PostsManager.shared.changePostStatus(post: post)
+        NotificationCenter.default.post(name: .postHasChangedStatus, object: nil)
         setupUI()
     }
 }

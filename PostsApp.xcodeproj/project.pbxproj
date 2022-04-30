@@ -10,7 +10,6 @@
 		35018E87281CA71800BBD2A7 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35018E86281CA71800BBD2A7 /* DBManager.swift */; };
 		359CDBB3281C93460019A298 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359CDBB2281C93460019A298 /* AppDelegate.swift */; };
 		359CDBB5281C93460019A298 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359CDBB4281C93460019A298 /* SceneDelegate.swift */; };
-		359CDBB7281C93460019A298 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359CDBB6281C93460019A298 /* ViewController.swift */; };
 		359CDBBC281C93470019A298 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 359CDBBB281C93470019A298 /* Assets.xcassets */; };
 		359CDBBF281C93470019A298 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 359CDBBD281C93470019A298 /* LaunchScreen.storyboard */; };
 		359CDBC9281CA0180019A298 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359CDBC7281CA0180019A298 /* HomePageViewController.swift */; };
@@ -36,7 +35,6 @@
 		359CDBAF281C93460019A298 /* PostsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		359CDBB2281C93460019A298 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		359CDBB4281C93460019A298 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		359CDBB6281C93460019A298 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		359CDBBB281C93470019A298 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		359CDBBE281C93470019A298 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		359CDBC0281C93470019A298 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 				359CDBC6281C9FF60019A298 /* UI */,
 				359CDBB2281C93460019A298 /* AppDelegate.swift */,
 				359CDBB4281C93460019A298 /* SceneDelegate.swift */,
-				359CDBB6281C93460019A298 /* ViewController.swift */,
 				359CDBBB281C93470019A298 /* Assets.xcassets */,
 				359CDBBD281C93470019A298 /* LaunchScreen.storyboard */,
 				359CDBC0281C93470019A298 /* Info.plist */,
@@ -297,7 +294,6 @@
 				35018E87281CA71800BBD2A7 /* DBManager.swift in Sources */,
 				35F4D5F3281CDBB500FC9ADB /* PostsManager.swift in Sources */,
 				35F4D5F5281CDCB400FC9ADB /* ReachabilityManager.swift in Sources */,
-				359CDBB7281C93460019A298 /* ViewController.swift in Sources */,
 				359CDBCD281CA0630019A298 /* PostTableViewCell.swift in Sources */,
 				359CDBB3281C93460019A298 /* AppDelegate.swift in Sources */,
 				35F4D5EE281CB21B00FC9ADB /* Post.swift in Sources */,
