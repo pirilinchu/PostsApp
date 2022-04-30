@@ -21,8 +21,7 @@ class DBManager: NSObject {
     }
     
     var posts: [Post] {
-        let realm = instantiateRealm()
-        return Array(realm.objects(Post.self))
+        Array(instantiateRealm().objects(Post.self))
     }
     
     func savePosts(posts: [Post]) {
@@ -36,7 +35,7 @@ class DBManager: NSObject {
         }
         
         realm.beginWrite()
-        realm.deleteAll()
+        realm.delete(self.posts)
         realm.add(posts)
         do {
            try realm.commitWrite()
@@ -56,5 +55,43 @@ class DBManager: NSObject {
             fatalError("Error saving posts")
         }
         return post
+    }
+    
+    func getCommentsFor(post: Post) -> [Comment] {
+        return instantiateRealm().objects(Comment.self).filter({ $0.postID == post.id })
+    }
+    
+    func saveComments(post: Post, comments: [Comment]) -> [Comment] {
+        let realm = instantiateRealm()
+        
+        realm.beginWrite()
+        realm.delete(realm.objects(Comment.self))
+        realm.add(comments)
+        do {
+           try realm.commitWrite()
+        } catch {
+            fatalError("Error saving comments")
+        }
+        
+        return getCommentsFor(post: post)
+    }
+    
+    func getUserFor(post: Post) -> User {
+        return instantiateRealm().objects(User.self).where({ $0.id == post.userID }).first ?? User()
+    }
+    
+    func saveUsers(post: Post, users: [User]) -> User {
+        let realm = instantiateRealm()
+        
+        realm.beginWrite()
+        realm.delete(realm.objects(User.self))
+        realm.add(users)
+        do {
+           try realm.commitWrite()
+        } catch {
+            fatalError("Error saving comments")
+        }
+        
+        return getUserFor(post: post)
     }
 }

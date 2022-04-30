@@ -70,9 +70,18 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
         cell.post = isOnFavoritesPage ? favorites[indexPath.row] : posts[indexPath.row]
         cell.isOnFavorite = isOnFavoritesPage
         cell.setupUI()
+        cell.selectionStyle = .none
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let controller = PostDetailsViewController()
+        controller.post = isOnFavoritesPage ? favorites[indexPath.row] : posts[indexPath.row]
+        controller.completionHandler = {
+            self.allTableView.reloadData()
+        }
+        present(controller, animated: true)
+    }
     
 }
 

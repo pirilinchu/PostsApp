@@ -35,4 +35,40 @@ class PostsManager {
         return database.changePostStatus(post: post)
     }
     
+    func getCommentsForPost(post: Post, success: @escaping(_ posts: [Comment]) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+        guard ReachabilityManager.shared.isNetworkReachable else {
+            success(database.getCommentsFor(post: post))
+            return
+        }
+        
+        api.getComments { comments in
+            let commentsForPost = self.database.saveComments(post: post, comments: comments)
+            success(commentsForPost)
+        } failure: { error in
+            failure(error)
+        }
+    }
+    
+    func getCommentsForPost(post: Post) -> [Comment] {
+        database.getCommentsFor(post: post)
+    }
+    
+    func getUserForPost(post: Post, success: @escaping(_ posts: User) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+        guard ReachabilityManager.shared.isNetworkReachable else {
+            success(database.getUserFor(post: post))
+            return
+        }
+        
+        api.getUsers { users in
+            let userForPost = self.database.saveUsers(post: post, users: users)
+            success(userForPost)
+        } failure: { error in
+            failure(error)
+        }
+    }
+    
+    func getUserForPost(post: Post) -> User {
+        database.getUserFor(post: post)
+    }
+    
 }
