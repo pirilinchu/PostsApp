@@ -13,16 +13,19 @@ class HomePageViewController: UIViewController {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var allTableView: UITableView!
     
-    var posts: [Post] = []
+    var posts: [Post] {
+        PostsManager.shared.getPosts
+    }
     var favorites: [Post] {
         posts.filter({ $0.isFavorite })
     }
+
     var count: Int {
-        if segmentedControl.selectedSegmentIndex == 0 {
-            return posts.count
-        } else {
-            return favorites.count
-        }
+        return isOnFavoritesPage ? favorites.count : posts.count
+    }
+    
+    var isOnFavoritesPage: Bool {
+        segmentedControl.selectedSegmentIndex == .favoritePage
     }
     
     override func viewDidLoad() {
@@ -33,8 +36,7 @@ class HomePageViewController: UIViewController {
     }
     
     private func fillData() {
-        APIManager.shared.getPosts { posts in
-            self.posts = posts
+        PostsManager.shared.getPosts { posts in
             self.allTableView.reloadData()
         } failure: { error in
             print("Error")
@@ -62,9 +64,11 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = Bundle.main.loadNibNamed(PostTableViewCell.identifier, owner: self, options: nil)?.first as! PostTableViewCell
-        cell.post = segmentedControl.selectedSegmentIndex == 0 ? posts[indexPath.row] : favorites[indexPath.row]
-        cell.isOnFavorite = segmentedControl.selectedSegmentIndex == 1
+        guard let cell = Bundle.main.loadNibNamed(PostTableViewCell.identifier, owner: self, options: nil)?.first as? PostTableViewCell else {
+            return PostTableViewCell()
+        }
+        cell.post = isOnFavoritesPage ? favorites[indexPath.row] : posts[indexPath.row]
+        cell.isOnFavorite = isOnFavoritesPage
         cell.setupUI()
         return cell
     }
@@ -74,5 +78,10 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension UIColor {
     static let backgroundColor = UIColor(named: "BackgroundColor")
+}
+
+extension Int {
+    static let homePage = 0
+    static let favoritePage = 1
 }
 

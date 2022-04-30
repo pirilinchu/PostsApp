@@ -39,7 +39,7 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @IBAction func favoriteButtonTapped(_ sender: Any) {
-        post.isFavorite = !post.isFavorite
+        post = PostsManager.shared.changePostStatus(post: post)
         setupUI()
     }
 }
