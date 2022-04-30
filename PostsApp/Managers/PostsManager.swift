@@ -13,6 +13,10 @@ class PostsManager {
     let database = DBManager.shared
     let api = APIManager.shared
     
+    var getPosts: [Post] {
+        database.posts
+    }
+    
     func getPosts(success: @escaping(_ posts: [Post]) -> Void, failure: @escaping(_ error: Error?) -> Void) {
         guard ReachabilityManager.shared.isNetworkReachable else {
             success(database.posts)
@@ -26,12 +30,9 @@ class PostsManager {
             failure(error)
         }
     }
-    
-    var getPosts: [Post] {
-        database.posts
-    }
-    
+
     func changePostStatus(post: Post) -> Post {
         return database.changePostStatus(post: post)
     }
+    
 }

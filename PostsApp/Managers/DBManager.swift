@@ -28,6 +28,13 @@ class DBManager: NSObject {
     func savePosts(posts: [Post]) {
         let realm = instantiateRealm()
         
+        //update local isFavorite value on server posts
+        posts.forEach { post in
+            if let previousPost = self.posts.first(where: { $0.id == post.id }) {
+                post.isFavorite = previousPost.isFavorite
+            }
+        }
+        
         realm.beginWrite()
         realm.deleteAll()
         realm.add(posts)
