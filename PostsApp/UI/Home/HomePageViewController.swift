@@ -22,7 +22,7 @@ class HomePageViewController: UIViewController {
     }
     
     var posts: [Post] {
-        PostsManager.shared.getPosts.sorted(by: { $0.isFavorite && !$1.isFavorite })
+        PostsManager.shared.getPosts
     }
     var favorites: [Post] {
         posts.filter({ $0.isFavorite })
