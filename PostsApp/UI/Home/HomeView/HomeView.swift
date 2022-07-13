@@ -1,5 +1,5 @@
 //
-//  HomePageViewController.swift
+//  HomeView.swift
 //  PostsApp
 //
 //  Created by Santiago Mendoza on 29/4/22.
@@ -7,8 +7,11 @@
 
 import UIKit
 
-class HomePageViewController: UIViewController {
+class HomeView: UIViewController {
 
+    // MARK: Properties
+    var presenter: HomePresenterProtocol?
+    
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var allTableView: UITableView!
@@ -17,17 +20,16 @@ class HomePageViewController: UIViewController {
     
     var refreshControl: UIRefreshControl {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(self.fillData), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(self.reloadData), for: .valueChanged)
         return refreshControl
     }
     
-    var posts: [Post] {
-        PostsManager.shared.getPosts
-    }
-    var favorites: [Post] {
-        posts.filter({ $0.isFavorite })
-    }
+    var posts: [Post] = []
+    
+    var favorites: [Post] = []
 
+    var hasConnection: Bool = false
+    
     var count: Int {
         return isOnFavoritesPage ? favorites.count : posts.count
     }
@@ -38,35 +40,23 @@ class HomePageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter?.viewDidLoad()
         setupTableView()
         setupUI()
-        fillData()
-        setupDeleteButton()
         setupRefreshControl()
         setupBanner()
-        registerNotifications()
     }
     
-    private func registerNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleReachabilityChanged), name: .reachabilityChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handlePostHasChangedStatus), name: .postHasChangedStatus, object: nil)
-    }
-    
-    @objc private func handlePostHasChangedStatus() {
-        allTableView.reloadData()
-    }
-    
-    @objc private func handleReachabilityChanged() {
-        setupRefreshControl()
-        setupBanner()
+    @objc private func reloadData() {
+        presenter?.refreshData()
     }
     
     private func setupBanner() {
-        offlineBannerHeight.constant = ReachabilityManager.shared.isNetworkReachable ? 0.0 : 20.0
+        offlineBannerHeight.constant = hasConnection ? 0.0 : 20.0
     }
     
     private func setupRefreshControl() {
-        if !isOnFavoritesPage && ReachabilityManager.shared.isNetworkReachable {
+        if !isOnFavoritesPage && hasConnection {
             allTableView.refreshControl = refreshControl
         } else {
             allTableView.refreshControl = nil
@@ -75,20 +65,11 @@ class HomePageViewController: UIViewController {
     
     private func setupDeleteButton() {
         if !favorites.isEmpty && isOnFavoritesPage {
-            navBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Remove All", style: .plain, target: self, action: #selector(handleDeleteFavorites))
+            navBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Remove All", style: .plain, target: self, action: #selector(buttonDeleteFavorites))
         } else {
             navBar.topItem?.rightBarButtonItem = nil
         }
 
-    }
-    
-    @objc private func fillData() {
-        PostsManager.shared.getPosts { posts in
-            self.allTableView.refreshControl?.endRefreshing()
-            self.allTableView.reloadData()
-        } failure: { error in
-            print("Error")
-        }
     }
     
     private func setupUI() {
@@ -102,20 +83,18 @@ class HomePageViewController: UIViewController {
         allTableView.dataSource = self
     }
     
-    @objc func handleDeleteFavorites() {
-        PostsManager.shared.removeAllFavorites()
-        allTableView.reloadData()
-        setupDeleteButton()
+    @objc func buttonDeleteFavorites() {
+        presenter?.deleteAllFavorites()
     }
     
     @IBAction func segmentedControlTapped(_ sender: Any) {
-        allTableView.reloadData()
+        presenter?.getFavorites()
         setupDeleteButton()
         setupRefreshControl()
     }
 }
 
-extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
+extension HomeView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         count
     }
@@ -126,19 +105,17 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.post = isOnFavoritesPage ? favorites[indexPath.row] : posts[indexPath.row]
         cell.isOnFavorite = isOnFavoritesPage
+        cell.buttonAction = {
+            self.presenter?.changePostStatus(post: cell.post)
+        }
         cell.setupUI()
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let controller = PostDetailsViewController()
-        controller.post = isOnFavoritesPage ? favorites[indexPath.row] : posts[indexPath.row]
-        controller.completionHandler = {
-            self.allTableView.reloadData()
-            self.setupDeleteButton()
-        }
-        present(controller, animated: true)
+        let post = isOnFavoritesPage ? favorites[indexPath.row] : posts[indexPath.row]
+        presenter?.goToDetails(from: self, post: post)
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -149,11 +126,39 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
 
         let actions = [UIContextualAction(style: .destructive, title: "Delete") { _,_,_  in
             let post = self.isOnFavoritesPage ? self.favorites[indexPath.row] : self.posts[indexPath.row]
-            let _ = PostsManager.shared.changePostStatus(post: post)
-            self.allTableView.reloadData()
-            self.setupDeleteButton()
+            self.presenter?.changePostStatus(post: post)
         }]
         return UISwipeActionsConfiguration(actions: actions)
+    }
+    
+}
+
+extension HomeView: HomeViewProtocol {
+    
+    func getFavoritesForView(posts: [Post]) {
+        favorites = posts
+        allTableView.reloadData()
+        self.setupDeleteButton()
+    }
+    
+    func getPostsForView(posts: [Post]) {
+        self.posts = posts
+        allTableView.refreshControl?.endRefreshing()
+        allTableView.reloadData()
+    }
+    
+    func handleDeleteFavorites() {
+        presenter?.getFavorites()
+    }
+    
+    func handlePostStatusChanged() {
+        presenter?.getFavorites()
+    }
+    
+    func handleReachabilityChanged(hasConnection: Bool) {
+        self.hasConnection = hasConnection
+        setupRefreshControl()
+        setupBanner()
     }
     
 }

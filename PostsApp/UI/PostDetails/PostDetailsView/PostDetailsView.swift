@@ -7,7 +7,10 @@
 
 import UIKit
 
-class PostDetailsViewController: UIViewController {
+class PostDetailsView: UIViewController {
+    
+    // MARK: Properties
+    var presenter: PostDetailsPresenterProtocol?
 
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
@@ -26,13 +29,8 @@ class PostDetailsViewController: UIViewController {
     @IBOutlet weak var commentsTableView: UITableView!
     
     var post: Post = Post()
-    var completionHandler: (() -> Void)? = nil
-    var user: User {
-        PostsManager.shared.getUserForPost(post: post)
-    }
-    var comments: [Comment] {
-        PostsManager.shared.getCommentsForPost(post: post)
-    }
+    var user: User = User()
+    var comments: [Comment] = []
     
     var buttonImage: UIImage {
         return post.isFavorite ? UIImage(systemName: "star.fill")! : UIImage(systemName: "star")!
@@ -41,7 +39,7 @@ class PostDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        getData()
+        presenter?.viewDidLoad(post: post)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,30 +47,10 @@ class PostDetailsViewController: UIViewController {
         fillData()
         updateUI()
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        completionHandler?()
-    }
     
     private func setupTableView() {
         commentsTableView.delegate = self
         commentsTableView.dataSource = self
-    }
-    
-    private func getData() {
-        PostsManager.shared.getUserForPost(post: post) { _ in
-            self.fillData()
-            self.updateUI()
-        } failure: { error in
-            print("error")
-        }
-        
-        PostsManager.shared.getCommentsForPost(post: post) { _ in
-            self.commentsTableView.reloadData()
-        } failure: { error in
-            print("error")
-        }
     }
     
     private func fillData() {
@@ -100,8 +78,7 @@ class PostDetailsViewController: UIViewController {
     }
 
     @IBAction func favoriteButtonTapped(_ sender: Any) {
-        post = PostsManager.shared.changePostStatus(post: post)
-        updateUI()
+        presenter?.changePostStatus(post: post)
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
@@ -109,7 +86,7 @@ class PostDetailsViewController: UIViewController {
     }
 }
 
-extension PostDetailsViewController: UITableViewDelegate, UITableViewDataSource {
+extension PostDetailsView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         comments.count
     }
@@ -123,4 +100,25 @@ extension PostDetailsViewController: UITableViewDelegate, UITableViewDataSource 
         cell.selectionStyle = .none
         return cell
     }
+    
+}
+
+extension PostDetailsView: PostDetailsViewProtocol {
+    
+    func handleGetComments(comments: [Comment]) {
+        self.comments = comments
+        self.commentsTableView.reloadData()
+    }
+    
+    func handleGetUser(user: User) {
+        self.user = user
+        self.fillData()
+        self.updateUI()
+    }
+    
+    func handlePostStatusChanged() {
+        NotificationCenter.default.post(name: .postHasChangedStatus, object: nil, userInfo: nil)
+        updateUI()
+    }
+
 }

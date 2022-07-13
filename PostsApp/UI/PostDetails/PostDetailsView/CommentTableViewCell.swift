@@ -25,11 +25,5 @@ class CommentTableViewCell: UITableViewCell {
         nameLabel.text = comment.name
         bodyLabel.text = comment.body
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
 }

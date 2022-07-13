@@ -14,12 +14,15 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var postTitleLabel: UILabel!
     @IBOutlet weak var postDescriptionLabel: UILabel!
-    
+
     var post: Post = Post()
     var isOnFavorite = false
     var buttonImage: UIImage {
         return post.isFavorite ? UIImage(systemName: "star.fill")! : UIImage(systemName: "star")!
     }
+    
+    var buttonAction: (() -> Void)? = nil
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setupUI()
@@ -39,8 +42,7 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @IBAction func favoriteButtonTapped(_ sender: Any) {
-        post = PostsManager.shared.changePostStatus(post: post)
-        NotificationCenter.default.post(name: .postHasChangedStatus, object: nil)
+        buttonAction?()
         setupUI()
     }
 }
