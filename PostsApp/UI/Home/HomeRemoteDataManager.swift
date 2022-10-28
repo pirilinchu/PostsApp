@@ -16,13 +16,13 @@ class HomeRemoteDataManager:HomeRemoteDataManagerInputProtocol {
     func getPostsFromApi() {
         AF.request("https://jsonplaceholder.typicode.com/posts", method: .get).validate(statusCode: 200..<300).responseDecodable(of: PostsResponse.self) { response in
             if let error = response.error {
-                self.remoteRequestHandler?.getPostsFromApiCallback(posts: nil, error: error.localizedDescription)
+                print(error.localizedDescription)
             } else {
                 guard let posts = try? response.result.get() else {
-                    self.remoteRequestHandler?.getPostsFromApiCallback(posts: nil, error: "Parsing data error")
+                    print("parsing error")
                     return
                 }
-                self.remoteRequestHandler?.getPostsFromApiCallback(posts: posts, error: nil)
+                self.remoteRequestHandler?.getPostsFromApiCallback(posts: posts)
             }
         }
     }

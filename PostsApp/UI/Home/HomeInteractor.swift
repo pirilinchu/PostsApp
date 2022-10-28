@@ -49,11 +49,7 @@ class HomeInteractor: HomeInteractorInputProtocol {
 
 extension HomeInteractor: HomeRemoteDataManagerOutputProtocol {
     
-    func getPostsFromApiCallback(posts: [Post]?, error: String?) {
-        guard let posts = posts else {
-            presenter?.getPostsCallback(posts: [])
-            return
-        }
+    func getPostsFromApiCallback(posts: [Post]) {
         localDatamanager?.savePostsFromApi(posts: posts)
         presenter?.getPostsCallback(posts: posts)
     }

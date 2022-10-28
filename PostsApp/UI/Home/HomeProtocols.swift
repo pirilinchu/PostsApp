@@ -78,7 +78,7 @@ protocol HomeRemoteDataManagerInputProtocol: AnyObject {
 
 protocol HomeRemoteDataManagerOutputProtocol: AnyObject {
     // REMOTEDATAMANAGER -> INTERACTOR
-    func getPostsFromApiCallback(posts: [Post]?, error: String?)
+    func getPostsFromApiCallback(posts: [Post])
 }
 
 protocol HomeLocalDataManagerInputProtocol: AnyObject {
@@ -102,19 +102,8 @@ protocol HomeLocalDataManagerOutputProtocol: AnyObject {
     func changePostStatusCallBack()
 }
 
-//// Cell protocol:
-//protocol HomeViewCellProtocol: HomeCellPresenterProtocol {
-//    var presenter: HomeCellPresenterProtocol? { get set }
-//
-//    func handlePostStatusChanged()
-//}
-//
-//protocol HomeCellPresenterProtocol: AnyObject {
-//    var view: HomeViewCellProtocol? { get set }
-//    var interactor: HomeInteractorInputProtocol? { get set }
-//
-//    func changePostStatus(post: Post)
-//}
+
+
 
 protocol ReachabilityProtocol {
     var isNetworkReachable: Bool { get }
